@@ -1,0 +1,18 @@
+Services
+Services help to adhere to the Single Purpose Rule, s.t. certain functionality (eg: Timer, User actions) are accessible to Components and perform operations.
+
+1. Angular uses dependancy injection to push instances of a Service to a Component. Services are instantiated by the "providers:[]" option at either the Root level app.module or component level.
+
+-- If at Root Level, only a single instance of a service is instantiated and it's passed to the child level components that use dependancy injection via constructor (eg: constructor(timer:TimerService)). Thus if for example 3 instances of the timer widet exist. Pressing Start will cause all instances to start.
+
+-- If at the Component level, a local instance is created (eg: like new Class()). The service will ONLY be visible to components at that level and lower in the component tree. Thus in essence pressing Start will only start that compnent's instance. All child compononents of that instance will be able to interact with the service if injected.
+
+
+2. EventEmitters are used as a method to push events outside of Components to Other Components. Observables are used for Services to push asyncronous information to it's caller(s)
+
+
+3) Change Detection Strategy in Angular
+--- Default Strategy: State changes happen via Events, XHR (external web requests) and Timeouts...So if a Component issues an event (eg: Timeout) then the App (root component) captures the event and broadcasts it to all child widgets (from top down to leave) ... ONLY the widgets that are bound to the Triggered event will actually respond. Hence why in Angular 102 (default configuration) you'll notice the process() get method fires twice (two widgets)
+
+
+--- Push Change Detection Strategy: Ignores dirty check cycle, and if the reference of any component input changes (or change in internal state), then it fires the Change Detection strategy for the Components in it's tree branch heirchy only. The event doesn't go up to the App (root component) then percolate to other Components.

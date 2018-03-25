@@ -1,0 +1,10 @@
+<div>
+  <h1>Timers</h1>
+  <!-- onComplete comes from Output var in app.component.ts -->
+  <app-timer init="65" (onComplete)="logCountdownEnd()"></app-timer>
+    <h1>Timers 2</h1>
+    <app-timer init="20" (onComplete)="logCountdownEnd()"></app-timer>
+
+    <app-timer-native init="65" (onComplete)="logCountdownEnd()"></app-timer-native>
+    <app-timer-none init="20" (onComplete)="logCountdownEnd()"></app-timer-none>
+</div>

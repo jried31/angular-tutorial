@@ -1,0 +1,27 @@
+<div class="timer">
+  <!-- If you look @console you'll notice that I console log each get process()
+  call....You'll notice the method's invoked twice.
+
+  --- Default Strategy: State changes happen via Events, XHR (external web requests) and Timeouts...So if a Component issues an event (eg: Timeout) then the App (root component) captures the event and broadcasts it to all child widgets (from top down to leave) ... ONLY the widgets that are bound to the Triggered event will actually respond. Hence why in Angular 102 (default configuration) you'll notice the process() get method fires twice (two widgets)
+-->
+  <app-progress-bar [progress]="progress"></app-progress-bar>
+
+  <!-- Instead of binding to the coundown value in service (which is BAD)
+  we use Observables ... In particular, we subscribe directly to the "AsyncPipe"
+   named "async". Binding to the pipe is great because the pipe Autocloses
+  (ie: unscribes) when compnoent is destroyed moreover we're reducing a binding
+
+  Although one can also subscribe to the Observable in the ngOnInit(), However
+  it still binds the value.
+
+  Lastly, technically since "progress" is a get() that binds to an Observable,
+  I can use it's "count" private variable [time]="count" instead but I'm keeping
+  the AsyncPipe example here for general reference. -->
+  <app-display [time]="timer.countdown$ | async"></app-display>
+
+  <div class="buttons">
+    <button *ngIf="timer.paused" (click)="timer.toggleCountdown()">Play</button>
+    <button *ngIf="!timer.paused" (click)="timer.toggleCountdown()">Pause</button>
+    <button (click)="timer.restartCountdown()">Restart</button>
+  </div>
+</div>
