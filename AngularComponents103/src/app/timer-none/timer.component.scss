@@ -1,0 +1,10 @@
+/* I removed the styles defined here because the .None option for view
+encapsulation injects CSS styles defined here into the Global CSS template.
+
+Therefore, this modification below will be applied to all HTML attributes that
+use .buttons.
+*/
+
+.buttons {
+  background-color: orange;
+}

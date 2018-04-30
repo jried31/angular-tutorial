@@ -1,0 +1,12 @@
+<ul>
+  <!-- iterates through the list of tabs and sets the tab title for all tabs -->
+  <li *ngFor="let tab of tabs"
+      [ngClass]="{'active':tab.isActive}"
+      (click)="selectTab(tab)">
+      {{tab.title}}
+  </li>
+</ul>
+<!-- Binds to the content script so that the content is available for hte selected tab -->
+<div class="content">
+  <ng-content></ng-content>
+</div>

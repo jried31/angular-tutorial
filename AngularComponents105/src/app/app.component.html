@@ -1,0 +1,41 @@
+<div>
+
+  <!-- Tempalte binding is used in order to pass in the content in the tab object to the child omponent
+  On click of the app-tab instance u see the active content
+  -->
+  <app-tabs>
+    <app-tab title="Timers">
+      <!-- onComplete comes from Output var in app.component.ts -->
+      <app-timer *ngFor="let timer of timers" init="{{timer}}" (onComplete)="showEndTimerAlert()"></app-timer>
+      <button class="add" (click)="showAddTimer()">+</button>
+    </app-tab>
+    <app-tab title="Chrono">
+      Crono. Not available.
+    </app-tab>
+    <app-tab title="Alarm">
+      Alarm. Not Available.
+    </app-tab>
+  </app-tabs>
+
+
+  <!-- Literally the content in here will show up in the child component via selectors
+This is A VERY IMPORTANT FEATURE-->
+  <app-alert-view [hidden]="!isAddTimerVisible">
+    <div header>Add Timer</div>
+    <label>Set the number of seconds for timer</label>
+    <input [(ngModel)]="time" type="number">
+    <button (click)="hideAddTimer()" class="cancel-button">Cancel</button>
+    <button (click)="submitAddTimer()">Ok</button>
+  </app-alert-view>
+
+  <app-alert-view [hidden]="!isEndTimerAlertVisible">
+    <div header> Timer Ended</div>
+    <div >Your countdown has ended.</div>
+    <button (click)="hideEndTimerAlert()" >Done</button>
+  </app-alert-view>
+    <h1>Timers 2</h1>
+    <app-timer init="20" (onComplete)="logCountdownEnd()"></app-timer>
+
+    <app-timer-native init="65" (onComplete)="logCountdownEnd()"></app-timer-native>
+    <app-timer-none init="20" (onComplete)="logCountdownEnd()"></app-timer-none>
+</div>
